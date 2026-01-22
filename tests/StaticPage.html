@@ -301,9 +301,10 @@
                     document.getElementById('connectionStatus').innerHTML = '🟢 Connected to FastAPI server!';
                     return true;
                 } else {
-                    throw new Error('Server returned non-OK status');
+                    throw new Error(`Server returned ${response.status} ${response.statusText}`);
                 }
             } catch (error) {
+                logDetailedError(error, "Connection Test");
                 document.getElementById('connectionStatus').className = 'status disconnected';
                 document.getElementById('connectionStatus').innerHTML = `🔴 Connection failed: ${error.message}`;
                 return false;
@@ -388,6 +389,21 @@
             }).catch(err => {
                 console.error('Failed to copy: ', err);
             });
+        }
+
+        function logDetailedError(error, context) {
+            console.error(`[${context}] Error details:`, {
+                name: error.name,
+                message: error.message,
+                stack: error.stack,
+                timestamp: new Date().toISOString()
+            });
+
+            // Also show in UI if possible
+            const statusEl = document.getElementById('connectionStatus');
+            if (statusEl) {
+                statusEl.innerHTML += `<br><small>🔍 ${context}: ${error.message}</small>`;
+            }
         }
 
         // Auto-test connection when page loads
