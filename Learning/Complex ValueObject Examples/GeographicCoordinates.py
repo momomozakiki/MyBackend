@@ -20,4 +20,5 @@ class GeographicCoordinate(ValueObject):
 
 # Usage
 coord = GeographicCoordinate(40.7128, -74.0060, 10.5)
-print(repr(coord))  # GeographicCoordinate(latitude=40.7128, longitude=-74.006, altitude=10.5)
+print(repr(coord))  # GeographicCoordinate(latitude=40.7128, longitude=-74.006, altitude=
+print(coord)

@@ -15,11 +15,13 @@ class RegularClass(ValueObject):
 @dataclass(frozen=True)
 class DataClass(ValueObject):
     x: int
-    # y: str
+    y: str
+
 
 # Test
 regular = RegularClass(10)
-dataclass_obj = DataClass(10)
+dataclass_obj = DataClass(10,'y string')
 
 print('without dataclass : ' + repr(regular))      # Output: ValueObject's custom repr
 print('with dataclass : ' +  repr(dataclass_obj)) # Output: DataClass(x=10) - NOT ValueObject's custom repr!
+print('with dataclass without repr : ' + str(dataclass_obj))
